@@ -3,6 +3,7 @@ from flask import (
     jsonify,
     request
 )
+from flask_login import login_required
 
 from database import db
 from models.user import User
@@ -23,3 +24,14 @@ def create_user():
         return jsonify({ "message": "Usuário cadastrado com sucesso" })
     
     return jsonify({ "message": "Dados inválidos" }), 400
+
+
+@bp_user.route("/<int:id_user>", methods=["GET"])
+@login_required
+def read_user(id_user):
+    user = User.query.get(id_user)
+
+    if user:
+        return { "username": user.username }
+    
+    return jsonify({ "message": "Usuário não encontrado" }), 404
