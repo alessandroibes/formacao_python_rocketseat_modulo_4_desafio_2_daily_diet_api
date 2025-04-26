@@ -1,5 +1,14 @@
-from flask import Blueprint, jsonify, request
-from flask_login import LoginManager, login_user
+from flask import (
+    Blueprint,
+    jsonify,
+    request
+)
+from flask_login import (
+    LoginManager,
+    login_required,
+    login_user,
+    logout_user
+)
 
 from models.user import User
 
@@ -28,3 +37,10 @@ def login():
             return jsonify({ "message": "Autenticação realizada com sucesso" })
         
     return jsonify({ "message": "Credenciais inválidas" }), 400
+
+
+@bp_auth.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    logout_user()
+    return jsonify({ "message": "Lougout realizado com sucesso!" })
