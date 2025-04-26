@@ -1,3 +1,5 @@
+import bcrypt
+
 from flask import (
     Blueprint,
     jsonify,
@@ -32,7 +34,7 @@ def login():
     if username and password:
         user = User.query.filter_by(username=username).first()
 
-        if user and user.password == password:
+        if user and bcrypt.checkpw(str.encode(password), user.password):
             login_user(user)
             return jsonify({ "message": "Autenticação realizada com sucesso" })
         
