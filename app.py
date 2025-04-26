@@ -1,7 +1,7 @@
 
 from flask import Flask
 
-from authentication import login_manager
+from views.authentication import login_manager
 from database import db
 
 def create_app() -> Flask:
@@ -19,11 +19,13 @@ def create_app() -> Flask:
 
 
 def __register_blueprints(app: Flask):
-    from api import bp_api
-    from authentication import bp_auth
+    from views.api import bp_api
+    from views.authentication import bp_auth
+    from views.user import bp_user
 
     app.register_blueprint(bp_api)
     app.register_blueprint(bp_auth)
+    app.register_blueprint(bp_user)
 
 
 if __name__ == '__main__':
