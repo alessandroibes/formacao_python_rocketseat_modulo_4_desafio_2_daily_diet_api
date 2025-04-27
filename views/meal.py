@@ -63,7 +63,7 @@ def get_meal(id):
     if meal:
         return meal.to_dict()
     
-    return jsonify({ "message": "Refeição não encontrada" }), 404
+    return jsonify({ "message": "Refeição não encontrada para este usuário" }), 404
 
 
 @bp_meal.route("/<int:id>", methods=["PUT"])
@@ -86,7 +86,7 @@ def update_meal(id):
 
         return jsonify({ "message": f"Refeição {id} atualizada com sucesso" })
 
-    return jsonify({ "message": "Refeição não encontrada" }), 404
+    return jsonify({ "message": "Refeição não encontrada para este usuário" }), 404
 
 
 @bp_meal.route("/<int:id>", methods=["DELETE"])
@@ -100,4 +100,4 @@ def delete_meal(id):
 
         return jsonify({ "message": f"Refeição {id} removida com sucesso" })
     
-    return jsonify({ "message": "Refeição não encontrada" }), 404
+    return jsonify({ "message": "Refeição não encontrada para este usuário" }), 404
