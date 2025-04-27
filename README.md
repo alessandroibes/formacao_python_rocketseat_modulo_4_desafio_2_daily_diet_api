@@ -15,4 +15,4 @@ Esse projeto é uma API para controle diário de dieta.
 - [✓] Deve ser possível apagar uma refeição
 - [✓] Deve ser possível listar todas as refeições de um usuário
 - [✓] Deve ser possível visualizar uma única refeição
-- [ ] As informações devem ser salvas em um banco de dados
+- [✓] As informações devem ser salvas em um banco de dados
