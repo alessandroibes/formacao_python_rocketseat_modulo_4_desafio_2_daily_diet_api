@@ -42,3 +42,14 @@ def register_meal():
         return jsonify({ "message": "Operação não permitida" }), 403
 
     return jsonify({ "message": "Dados inválidos" }), 400
+
+
+@bp_meal.route("/", methods=["GET"])
+@login_required
+def gel_all():
+    meals = Meal.query.filter_by(id_user=current_user.id).all()
+
+    if meals:
+        return [meal.to_dict() for meal in meals]
+    
+    return jsonify({ "message": "Não há refeições cadastradas para este usuário" }), 404
