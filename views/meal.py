@@ -53,3 +53,14 @@ def gel_all():
         return [meal.to_dict() for meal in meals]
     
     return jsonify({ "message": "Não há refeições cadastradas para este usuário" }), 404
+
+
+@bp_meal.route("/<int:id>", methods=["GET"])
+@login_required
+def get_meal(id):
+    meal = Meal.query.filter_by(id_user=current_user.id, id=id).first()
+
+    if meal:
+        return meal.to_dict()
+    
+    return jsonify({ "message": "Refeição não encontrada" }), 404

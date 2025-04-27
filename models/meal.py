@@ -16,7 +16,7 @@ class Meal(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "description": self.description,
+            "description": self.description if self.description else "",
             "date_time": self.date_time.strftime("%Y-%m-%d %H:%M:%S"),
             "is_on_the_diet": self.is_on_the_diet,
             "id_user": self.id_user
