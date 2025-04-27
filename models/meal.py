@@ -1,10 +1,13 @@
 from database import db
-from datetime import datetime
+from sqlalchemy.orm import relationship
 
 
 class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(200))
-    date_time = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    date_time = db.Column(db.DateTime, nullable=False)
     is_on_the_diet = db.Column(db.Boolean, default=False)
+    id_user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    user = relationship("User", back_populates="meals")

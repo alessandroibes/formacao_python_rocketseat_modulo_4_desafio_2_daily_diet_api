@@ -22,10 +22,12 @@ def __register_blueprints(app: Flask):
     from views.api import bp_api
     from views.authentication import bp_auth
     from views.user import bp_user
+    from views.meal import bp_meal
 
     app.register_blueprint(bp_api)
     app.register_blueprint(bp_auth)
     app.register_blueprint(bp_user)
+    app.register_blueprint(bp_meal)
 
 
 if __name__ == '__main__':
