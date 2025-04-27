@@ -64,3 +64,26 @@ def get_meal(id):
         return meal.to_dict()
     
     return jsonify({ "message": "Refeição não encontrada" }), 404
+
+
+@bp_meal.route("/<int:id>", methods=["PUT"])
+@login_required
+def update_meal(id):
+    meal = Meal.query.filter_by(id_user=current_user.id, id=id).first()
+
+    if meal:
+        data = request.json
+        name = data.get("name", meal.name)
+        description = data.get("description", meal.description)
+        date_time = data.get("date_time", meal.date_time.strftime("%Y-%m-%d %H:%M:%S")) # Format: "2025-04-27 11:37:00"
+        is_on_the_diet = data.get("is_on_the_diet", meal.is_on_the_diet)
+
+        meal.name = name
+        meal.description = description
+        meal.date_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M:%S")
+        meal.is_on_the_diet = is_on_the_diet
+        db.session.commit()
+
+        return jsonify({ "message": f"Refeição {id} atualizada com sucesso" })
+
+    return jsonify({ "message": "Refeição não encontrada" }), 404
